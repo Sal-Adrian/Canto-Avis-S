@@ -1,1 +1,0 @@
-Inspired by Universal Paperclip (Frank Lantz), this productivity app is meant to tickle that part of me that likes optimized numbers. Made in Go because I want to learn Go.
