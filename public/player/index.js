@@ -1,21 +1,19 @@
 import getXeno from '/api/xeno.js';
 
+const birds = [];
+
 class Birds {
   constructor(recordings) {
     this.data = recordings;
     this.currIndex = 0;
   }
-
   getBird() {
     return this.data[this.currIndex]
   }
-
   nextBird() {
     this.currIndex += 1;
   }
 }
-
-const birds = [];
 
 
 window.onload = async () => {
@@ -25,16 +23,13 @@ window.onload = async () => {
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
   birds[0].nextBird();
-  console.log(birds[0].getBird())
   document.getElementById('player-con').innerHTML = loadPlayer(birds[0].getBird());
 });
 
 
 async function createPlayer() {
   const rec = await getXeno();
-  console.log(rec)
   birds.push(new Birds(rec.recordings));
-  console.log(birds)
 
   return loadPlayer(birds[0].getBird());
 }
