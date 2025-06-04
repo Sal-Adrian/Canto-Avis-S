@@ -1,9 +1,9 @@
-
+import getXeno from '/api/xeno.js';
 
 function loadPlayer() {
   return (`
     <h1>
-      blah blah
+      ${getXeno()}
     </h1>
   `);
 }
