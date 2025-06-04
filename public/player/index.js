@@ -1,13 +1,17 @@
 import getXeno from '/api/xeno.js';
 
-function loadPlayer() {
+async function loadPlayer() {
+  const xeno = await getXeno();
+  console.log(xeno)
+
   return (`
     <h1>
-      ${getXeno()}
+      ${xeno.recordings[0].file}
     </h1>
   `);
 }
 
-window.onload = () => {
-  document.getElementById('player-con').innerHTML = loadPlayer();
+window.onload = async () => {
+  document.getElementById('player-con').innerHTML = '<h1>Loading...<h1>';
+  document.getElementById('player-con').innerHTML = await loadPlayer();
 }
