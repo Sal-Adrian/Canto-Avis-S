@@ -1,4 +1,4 @@
-import getXeno from '/api/xeno.js';
+import { getXeno, downloadXeno } from '/api/xeno.js';
 
 const birds = [];
 
@@ -17,24 +17,36 @@ class Birds {
 
 
 window.onload = async () => {
-  document.getElementById('player-con').innerHTML = '<h1>Loading...<h1>';
-  document.getElementById('player-con').innerHTML = await createPlayer();
+  document.getElementById('player-details').innerHTML = '<h1>Loading...<h1>';
+  await createPlayer();
+
+  const bird = birds[0].getBird();
+  document.getElementById('player-details').innerHTML = loadDetails(bird);
+  document.getElementById('player-audio').appendChild(loadAudio(bird.file));
 }
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
   birds[0].nextBird();
-  document.getElementById('player-con').innerHTML = loadPlayer(birds[0].getBird());
+  const bird = birds[0].getBird();
+  document.getElementById('player-details').innerHTML = loadDetails(bird);
+  document.getElementById('player-audio').innerHTML = loadAudio(bird.file);
 });
 
 
 async function createPlayer() {
   const rec = await getXeno();
   birds.push(new Birds(rec.recordings));
-
-  return loadPlayer(birds[0].getBird());
 }
 
-function loadPlayer(bird) {
+function loadAudio(URL) {
+  const aud = document.createElement('audio');
+  aud.src = URL;
+  aud.controls = true;
+  console.log(aud)
+  return aud;
+}
+
+function loadDetails(bird) {
   return (`
     <p>Name: ${bird.en}</p>
     <p>Location: ${bird.loc}</p>
@@ -42,5 +54,7 @@ function loadPlayer(bird) {
     <p>Type of Call: ${bird.type}</p>
     <p>Specific Name: ${bird.gen} ${bird.sp}</p>
     <p>Recordist: ${bird.rec}</p>
+    <p>URL: ${bird.file}</p>
+    <p>File Name: ${bird['file-name']}</p>
   `);
 }
