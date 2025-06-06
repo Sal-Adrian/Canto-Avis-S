@@ -1,12 +1,21 @@
-const express = require('express');
+import getXeno from './api/xeno.js';
+import XENO_KEY from './env.js';
+
+import express from 'express';
 const app = express();
 const port = 8080;
 
 
-app.use('/', express.static('public'))
+app.use('/', express.static('public'));
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: __dirname });
+app.get('/birds', async (req, res) => {
+  try {
+    const xeno = await getXeno(XENO_KEY);
+    
+    res.json(xeno.recordings)
+  } catch(error) {
+    res.status(400).send({message: 'Issue with API.'})
+  }
 });
 
 app.listen(port, () => {

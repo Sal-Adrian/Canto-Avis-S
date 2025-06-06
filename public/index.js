@@ -1,5 +1,3 @@
-import { getXeno, downloadXeno } from '/api/xeno.js';
-
 const birds = [];
 
 class Birds {
@@ -35,8 +33,10 @@ document.getElementById('nextBtn').addEventListener('click', async (e) => {
 
 
 async function createPlayer() {
-  const rec = await getXeno();
-  birds.push(new Birds(rec.recordings));
+  const res = await fetch(`http://localhost:8080/birds`);
+  
+  const rec = await res.json();
+  birds.push(new Birds(rec));
 }
 
 function loadAudio(URL) {
@@ -52,7 +52,7 @@ function loadDetails(bird) {
   return (`
     <p>Name: ${bird.en}</p>
     <p>Location: ${bird.loc}</p>
-    <p>Time: ${bird.time}</p>
+    <p>Length: ${bird.length}</p>
     <p>Type of Call: ${bird.type}</p>
     <p>Specific Name: ${bird.gen} ${bird.sp}</p>
     <p>Recordist: ${bird.rec}</p>
