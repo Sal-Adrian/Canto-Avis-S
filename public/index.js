@@ -34,6 +34,10 @@ document.getElementById('nextBtn').addEventListener('click', async (e) => {
 
 async function createPlayer() {
   const res = await fetch(`http://localhost:8080/birds`);
+  if(!res.ok) {
+    document.getElementById('player-details').innerHTML = 'Error with API; Please refresh page to try again.';
+    throw new Error("HTTP status " + res.status);
+  }
   
   const rec = await res.json();
   birds.push(new Birds(rec));
