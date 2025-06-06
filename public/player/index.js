@@ -29,7 +29,8 @@ document.getElementById('nextBtn').addEventListener('click', async (e) => {
   birds[0].nextBird();
   const bird = birds[0].getBird();
   document.getElementById('player-details').innerHTML = loadDetails(bird);
-  document.getElementById('player-audio').innerHTML = loadAudio(bird.file);
+  document.getElementById('player-audio').innerHTML = "";
+  document.getElementById('player-audio').appendChild(loadAudio(bird.file));
 });
 
 
@@ -42,7 +43,8 @@ function loadAudio(URL) {
   const aud = document.createElement('audio');
   aud.src = URL;
   aud.controls = true;
-  console.log(aud)
+  // aud.autoplay = true;
+
   return aud;
 }
 
