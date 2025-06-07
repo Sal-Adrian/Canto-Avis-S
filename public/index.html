@@ -3,22 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <title>Canto Avis</title>
-   <script type="module" src="/index.js"></script>
+  <script type="module" src="/index.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body style="background-color:black">
+<body>
   <div id="panning-con" style="background-color:red">
     456
   </div>
-  <div>
-    <button type="button" id="nextBtn">Next</button>
-    <button type="button" id="loopBtn">Loop</button>
-    <p id="loopIcon" style="background-color:red">LOOP</p>
-    <div id="audio-con">
+  <div class="grid-con close-queue">
+    <div>
+      <button type="button" id="nextBtn">Next</button>
+      <button type="button" id="loopBtn">Loop</button>
+      <p id="loopIcon" style="background-color:red">LOOP</p>
+      <div id="audio-con">
 
+      </div>
+      <div id="player-details" style="background-color:lightskyblue">
+        <h1>Loading...</h1>
+      </div>
     </div>
-    <div id="player-details" style="background-color:lightskyblue">
-      <!-- <h1>Loading...</h1> -->
+    <div id="queue-con" class="container" style="background-color:coral;">
+      <img id="queueBtn" src="images/queue.svg" class="top-right clickable" alt="queue"> 
+      <p id="Q1" class="hide">123</p>
+      <p id="Q2" class="hide">123</p>
+      <p id="Q3" class="hide">123</p>
+      <p id="Q4" class="hide">123</p>
+      <p id="Q5" class="hide">123</p>
+      <p id="Q6" class="hide">123</p>
+      <p id="Q7" class="hide">123</p>
+      <p id="Q8" class="hide">123</p>
+      <p id="Q9" class="hide">123</p>
+      <p id="Q10" class="hide">123</p>
     </div>
   </div>
+  
 </body>
 </html>
