@@ -24,7 +24,8 @@ document.getElementById('nextBtn').addEventListener('click', async (e) => {
   const bird = birds[0].getBird();
 
   document.getElementById('player-details').innerHTML = createDetails(bird);
-  document.getElementById('player-audio').src = bird.file;
+  // COMMENTED OUT WHILE TESTING
+  // document.getElementById('player-audio').src = bird.file;
 });
 
 document.getElementById('loopBtn').addEventListener('click', async (e) => {
@@ -71,8 +72,10 @@ function createDetails(bird) {
 function createAudio(URL) {
   const aud = document.createElement('audio');
   aud.id = "player-audio";
-  aud.src = URL;
+  // COMMENTED OUT WHILE TESTING
+  // aud.src = URL;
   aud.controls = true;
+  // COMMENTED OUT WHILE TESTING
   // aud.autoplay = true;
   document.getElementById('audio-con').appendChild(aud);
 }
