@@ -20,15 +20,28 @@ window.onload = async () => {
 
   const bird = birds[0].getBird();
   document.getElementById('player-details').innerHTML = loadDetails(bird);
-  document.getElementById('player-audio').appendChild(loadAudio(bird.file));
+  document.getElementById('audio-con').appendChild(loadAudio(bird.file, false));
 }
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
   birds[0].nextBird();
   const bird = birds[0].getBird();
+  const looping = document.getElementById('player-audio').loop;
+
   document.getElementById('player-details').innerHTML = loadDetails(bird);
-  document.getElementById('player-audio').innerHTML = "";
-  document.getElementById('player-audio').appendChild(loadAudio(bird.file));
+  document.getElementById('audio-con').innerHTML = "";
+  document.getElementById('audio-con').appendChild(loadAudio(bird.file, looping));
+});
+
+document.getElementById('loopBtn').addEventListener('click', async (e) => {
+  const aud = document.getElementById('player-audio');
+  aud.loop = !aud.loop;
+  
+  if(aud.loop) {
+    document.getElementById('loopIcon').style = 'background-color:green';
+  } else {
+    document.getElementById('loopIcon').style = 'background-color:red';
+  }
 });
 
 
@@ -43,10 +56,13 @@ async function createPlayer() {
   birds.push(new Birds(rec));
 }
 
-function loadAudio(URL) {
+function loadAudio(URL, looping) {
   const aud = document.createElement('audio');
+
   aud.src = URL;
   aud.controls = true;
+  aud.id = "player-audio";
+  aud.loop = looping;
   // aud.autoplay = true;
 
   return aud;
