@@ -9,7 +9,8 @@ class Birds {
     return this.data[this.currIndex]
   }
   nextBird() {
-    this.currIndex += 1;
+    const plusOne = this.currIndex + 1;
+    this.currIndex = plusOne < this.data.length ? plusOne : 0;
   }
 }
 
