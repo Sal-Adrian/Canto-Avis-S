@@ -1,0 +1,28 @@
+.grid-con {
+    display: grid;
+}
+
+.open-queue {
+    grid-template-columns: 70% 30%;
+}
+.close-queue {
+    grid-template-columns: 100% 0%;
+}
+
+.container {
+    position: relative;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
