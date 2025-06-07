@@ -15,22 +15,15 @@ class Birds {
 
 
 window.onload = async () => {
-  document.getElementById('player-details').innerHTML = '<h1>Loading...<h1>';
   await createPlayer();
-
-  const bird = birds[0].getBird();
-  document.getElementById('player-details').innerHTML = loadDetails(bird);
-  document.getElementById('audio-con').appendChild(loadAudio(bird.file, false));
 }
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
   birds[0].nextBird();
   const bird = birds[0].getBird();
-  const looping = document.getElementById('player-audio').loop;
 
-  document.getElementById('player-details').innerHTML = loadDetails(bird);
-  document.getElementById('audio-con').innerHTML = "";
-  document.getElementById('audio-con').appendChild(loadAudio(bird.file, looping));
+  document.getElementById('player-details').innerHTML = createDetails(bird);
+  document.getElementById('player-audio').src = bird.file;
 });
 
 document.getElementById('loopBtn').addEventListener('click', async (e) => {
@@ -54,21 +47,14 @@ async function createPlayer() {
   
   const rec = await res.json();
   birds.push(new Birds(rec));
+
+  const bird = birds[0].getBird();
+  document.getElementById('player-details').innerHTML = createDetails(bird);
+  
+  createAudio(bird.file);
 }
 
-function loadAudio(URL, looping) {
-  const aud = document.createElement('audio');
-
-  aud.src = URL;
-  aud.controls = true;
-  aud.id = "player-audio";
-  aud.loop = looping;
-  // aud.autoplay = true;
-
-  return aud;
-}
-
-function loadDetails(bird) {
+function createDetails(bird) {
   return (`
     <p>Name: ${bird.en}</p>
     <p>Location: ${bird.loc}</p>
@@ -79,4 +65,13 @@ function loadDetails(bird) {
     <p>URL: ${bird.file}</p>
     <p>File Name: ${bird['file-name']}</p>
   `);
+}
+
+function createAudio(URL) {
+  const aud = document.createElement('audio');
+  aud.id = "player-audio";
+  aud.src = URL;
+  aud.controls = true;
+  // aud.autoplay = true;
+  document.getElementById('audio-con').appendChild(aud);
 }
