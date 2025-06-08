@@ -39,6 +39,22 @@ document.getElementById('loopBtn').addEventListener('click', async (e) => {
   }
 });
 
+document.getElementById('queueBtn').addEventListener('click', async(e) => {
+  const queue = document.getElementById('player-con');
+  let newName = queue.className;
+  if(newName.indexOf('open') > -1) {
+    newName = newName.replace('open', 'close');
+  } else {
+    newName = newName.replace('close', 'open');
+  }
+  queue.className = newName;
+
+  for(let i = 1; i < 11; i++) {
+    const queueItem = document.getElementById("Q"+i);
+    queueItem.className = queueItem.className ? "" : "hide";
+  }
+});
+
 
 async function createPlayer() {
   const res = await fetch(`http://localhost:8080/birds`);
