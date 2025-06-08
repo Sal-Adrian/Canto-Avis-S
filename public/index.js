@@ -11,9 +11,13 @@ class Birds {
   nextBird() {
     const plusOne = this.currIndex + 1;
     this.currIndex = plusOne < this.data.length ? plusOne : 0;
+    updateQueue();
   }
   ithNextBird(i) {
-    return this.data[this.currIndex+i];
+    let plusI = this.currIndex + i;
+    if(plusI >= this.data.length) plusI -= this.data.length;
+
+    return this.data[plusI];
   }
 }
 
@@ -72,11 +76,7 @@ async function createPlayer() {
   const bird = birds[0].getBird();
   document.getElementById('player-details').innerHTML = createDetails(bird);
 
-  console.log(birds)
-  for(let i = 1; i < 11; i++) {
-    const queueItem = document.getElementById("Q"+i);
-    queueItem.innerHTML = birds[0].ithNextBird(i).en;
-  }
+  updateQueue();
   
   createAudio(bird.file);
 }
@@ -92,6 +92,13 @@ function createDetails(bird) {
     <p>URL: ${bird.file}</p>
     <p>File Name: ${bird['file-name']}</p>
   `);
+}
+
+function updateQueue() {
+  for(let i = 1; i < 11; i++) {
+    const queueItem = document.getElementById("Q"+i);
+    queueItem.innerHTML = birds[0].ithNextBird(i).en;
+  }
 }
 
 function createAudio(URL) {
