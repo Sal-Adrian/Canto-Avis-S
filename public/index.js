@@ -12,6 +12,9 @@ class Birds {
     const plusOne = this.currIndex + 1;
     this.currIndex = plusOne < this.data.length ? plusOne : 0;
   }
+  ithNextBird(i) {
+    return this.data[this.currIndex+i];
+  }
 }
 
 
@@ -68,6 +71,12 @@ async function createPlayer() {
 
   const bird = birds[0].getBird();
   document.getElementById('player-details').innerHTML = createDetails(bird);
+
+  console.log(birds)
+  for(let i = 1; i < 11; i++) {
+    const queueItem = document.getElementById("Q"+i);
+    queueItem.innerHTML = birds[0].ithNextBird(i).en;
+  }
   
   createAudio(bird.file);
 }
