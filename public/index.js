@@ -27,16 +27,14 @@ window.onload = async () => {
 }
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
-  birds[0].nextBird();
-  const bird = birds[0].getBird();
-
-  document.getElementById('player-details').innerHTML = createDetails(bird);
-  // COMMENTED OUT WHILE TESTING
-  // document.getElementById('player-audio').src = bird.file;
+  playNextBird();
 });
+document.getElementById('audio-player').addEventListener('ended', (e) => {
+  playNextBird();
+})
 
 document.getElementById('loopBtn').addEventListener('click', async (e) => {
-  const aud = document.getElementById('player-audio');
+  const aud = document.getElementById('audio-player');
   aud.loop = !aud.loop;
   
   if(aud.loop) {
@@ -78,7 +76,8 @@ async function createPlayer() {
 
   updateQueue();
   
-  createAudio(bird.file);
+  // COMMENTED OUT WHILE TESTING
+  document.getElementById('audio-player').src = bird.file;
 }
 
 function createDetails(bird) {
@@ -101,13 +100,11 @@ function updateQueue() {
   }
 }
 
-function createAudio(URL) {
-  const aud = document.createElement('audio');
-  aud.id = "player-audio";
+function playNextBird(e) {
+  birds[0].nextBird();
+  const bird = birds[0].getBird();
+
+  document.getElementById('player-details').innerHTML = createDetails(bird);
   // COMMENTED OUT WHILE TESTING
-  // aud.src = URL;
-  aud.controls = true;
-  // COMMENTED OUT WHILE TESTING
-  // aud.autoplay = true;
-  document.getElementById('audio-con').appendChild(aud);
+  document.getElementById('audio-player').src = bird.file;
 }
