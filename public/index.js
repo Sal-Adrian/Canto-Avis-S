@@ -82,13 +82,13 @@ async function createPlayer() {
 
 function createDetails(bird) {
   return (`
-    <p>Name: ${bird.en}</p>
-    <p>Location: ${bird.loc}</p>
-    <p>Length: ${bird.length}</p>
-    <p>Type of Call: ${bird.type}</p>
-    <p>Specific Name: ${bird.gen} ${bird.sp}</p>
-    <p>Recordist: ${bird.rec}</p>
-    <p>URL: ${bird.file}</p>
+    <p class="detail">Name: ${bird.en}</p>
+    <p class="detail">Location: ${bird.loc}</p>
+    <p class="detail">Length: ${bird.length}</p>
+    <p class="detail">Type of Call: ${bird.type}</p>
+    <p class="detail">Specific Name: ${bird.gen} ${bird.sp}</p>
+    <p class="detail">Recordist: ${bird.rec}</p>
+    <p class="detail">URL: ${bird.file}</p>
   `);
 }
 
