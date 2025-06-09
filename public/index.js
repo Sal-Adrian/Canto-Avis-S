@@ -45,11 +45,13 @@ document.getElementById('loopBtn').addEventListener('click', async (e) => {
 });
 
 document.getElementById('queueBtn').addEventListener('click', async(e) => {
-  const queue = document.getElementById('player-con');
+  const queue = document.getElementById('grid-con');
   let newName = queue.className;
   if(newName.indexOf('open') > -1) {
+    document.getElementById('player-con').className = "center";
     newName = newName.replace('open', 'close');
   } else {
+    document.getElementById('player-con').className = "";
     newName = newName.replace('close', 'open');
   }
   queue.className = newName;
