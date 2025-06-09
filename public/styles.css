@@ -13,14 +13,24 @@
     position: relative;
 }
 
+.center {
+    vertical-align: middle;
+}
+
 .top-right {
   position: absolute;
   top: 8px;
   right: 8px;
 }
 
-.clickable {
+.button {
     cursor: pointer;
+    width:32px;
+}
+
+.x-1 {
+    margin-left: 10px;
+    margin-right: 10x;
 }
 
 .hide {

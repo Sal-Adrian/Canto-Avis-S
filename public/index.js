@@ -38,9 +38,9 @@ document.getElementById('loopBtn').addEventListener('click', async (e) => {
   aud.loop = !aud.loop;
   
   if(aud.loop) {
-    document.getElementById('loopIcon').style = 'background-color:green';
+    document.getElementById('loopBtn').src = "images/loop-on.svg"
   } else {
-    document.getElementById('loopIcon').style = 'background-color:red';
+    document.getElementById('loopBtn').src = "images/loop-off.svg"
   }
 });
 
