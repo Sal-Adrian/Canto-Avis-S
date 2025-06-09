@@ -77,7 +77,7 @@ async function createPlayer() {
   updateQueue();
   
   // COMMENTED OUT WHILE TESTING
-  document.getElementById('audio-player').src = bird.file;
+  // document.getElementById('audio-player').src = bird.file;
 }
 
 function createDetails(bird) {
@@ -89,7 +89,6 @@ function createDetails(bird) {
     <p>Specific Name: ${bird.gen} ${bird.sp}</p>
     <p>Recordist: ${bird.rec}</p>
     <p>URL: ${bird.file}</p>
-    <p>File Name: ${bird['file-name']}</p>
   `);
 }
 
@@ -106,5 +105,5 @@ function playNextBird(e) {
 
   document.getElementById('player-details').innerHTML = createDetails(bird);
   // COMMENTED OUT WHILE TESTING
-  document.getElementById('audio-player').src = bird.file;
+  // document.getElementById('audio-player').src = bird.file;
 }
