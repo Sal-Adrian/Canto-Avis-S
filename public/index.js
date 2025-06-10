@@ -50,16 +50,24 @@ document.getElementById('queueBtn').addEventListener('click', async(e) => {
   if(newName.indexOf('open') > -1) {
     document.getElementById('player-con').className = "center";
     newName = newName.replace('open', 'close');
+
+    for(let i = 1; i < 11; i++) {
+      document.getElementById("Q"+i).className = "hide";
+    }
   } else {
     document.getElementById('player-con').className = "";
     newName = newName.replace('close', 'open');
-  }
-  queue.className = newName;
 
-  for(let i = 1; i < 11; i++) {
-    const queueItem = document.getElementById("Q"+i);
-    queueItem.className = queueItem.className ? "" : "hide";
+    for(let i = 1; i < 11; i++) {
+      if(i % 2 == 0) {
+        document.getElementById("Q"+i).className = "";
+      } else {
+        document.getElementById("Q"+i).className = "dark-queue";
+      }
+    }
   }
+  
+  queue.className = newName;
 });
 
 
