@@ -37,14 +37,7 @@ document.getElementById('nextBtn').addEventListener('click', async (e) => {
 });
 
 document.getElementById('loopBtn').addEventListener('click', async (e) => {
-  const aud = document.getElementById('audio-player');
-  aud.loop = !aud.loop;
-  
-  if(aud.loop) {
-    document.getElementById('loopBtn').src = "images/loop-on.svg"
-  } else {
-    document.getElementById('loopBtn').src = "images/loop-off.svg"
-  }
+  toggleLoop();
 });
 
 document.getElementById('queueBtn').addEventListener('click', async(e) => {
@@ -89,7 +82,6 @@ async function createPlayer() {
 
   updateQueue();
   
-  console.log(birds[0].data[1])
   const audioContainer = document.getElementById('audio-players');
   for(let i = birds[0].getCount(); i > 0 ; i--) {
     const audioPlayer = document.createElement('audio');
@@ -128,6 +120,7 @@ function playNextBird(e) {
   oldBird.pause();
   oldBird.controls = false;
   oldBird.currentTime = 0;
+  if(oldBird.loop) toggleLoop();
   
   birds[0].nextBird();
   const bird = birds[0].getBird();
@@ -137,4 +130,17 @@ function playNextBird(e) {
   const newBird = document.getElementById('audio-player'+currIndex)
   newBird.play();
   newBird.controls = true;
+}
+
+function toggleLoop() {
+  const currIndex = birds[0].getCurrIndex() + 1;
+  const aud = document.getElementById('audio-player'+currIndex);
+  console.log(birds[0].getCurrIndex+1)
+  aud.loop = !aud.loop;
+  
+  if(aud.loop) {
+    document.getElementById('loopBtn').src = "images/loop-on.svg"
+  } else {
+    document.getElementById('loopBtn').src = "images/loop-off.svg"
+  }
 }
