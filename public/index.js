@@ -5,6 +5,9 @@ class Birds {
     this.data = recordings;
     this.currIndex = 0;
   }
+  getCurrIndex() {
+    return this.currIndex;
+  }
   getBird() {
     return this.data[this.currIndex]
   }
@@ -19,6 +22,9 @@ class Birds {
 
     return this.data[plusI];
   }
+  getCount() {
+    return this.data.length;
+  }
 }
 
 
@@ -29,9 +35,6 @@ window.onload = async () => {
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
   playNextBird();
 });
-document.getElementById('audio-player').addEventListener('ended', (e) => {
-  playNextBird();
-})
 
 document.getElementById('loopBtn').addEventListener('click', async (e) => {
   const aud = document.getElementById('audio-player');
@@ -86,8 +89,18 @@ async function createPlayer() {
 
   updateQueue();
   
-  // COMMENTED OUT WHILE TESTING
-  // document.getElementById('audio-player').src = bird.file;
+  console.log(birds[0].data[1])
+  const audioContainer = document.getElementById('audio-players');
+  for(let i = birds[0].getCount(); i > 0 ; i--) {
+    const audioPlayer = document.createElement('audio');
+    audioPlayer.id = "audio-player"+i;
+    audioPlayer.className = "middle";
+    // COMMENTED OUT WHILE TESTING
+    // audioPlayer.src = birds[0].data[i-1].file;
+    audioContainer.prepend(audioPlayer);
+    audioPlayer.addEventListener('ended', () => playNextBird());
+  }
+  document.getElementById('audio-player1').controls = true;
 }
 
 function createDetails(bird) {
@@ -110,10 +123,18 @@ function updateQueue() {
 }
 
 function playNextBird(e) {
+  let currIndex = birds[0].getCurrIndex() + 1;
+  const oldBird = document.getElementById('audio-player'+currIndex);
+  oldBird.pause();
+  oldBird.controls = false;
+  oldBird.currentTime = 0;
+  
   birds[0].nextBird();
   const bird = birds[0].getBird();
-
   document.getElementById('player-details').innerHTML = createDetails(bird);
-  // COMMENTED OUT WHILE TESTING
-  // document.getElementById('audio-player').src = bird.file;
+
+  currIndex = birds[0].getCurrIndex() + 1;
+  const newBird = document.getElementById('audio-player'+currIndex)
+  newBird.play();
+  newBird.controls = true;
 }
