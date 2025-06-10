@@ -4,6 +4,7 @@ class Birds {
   constructor(recordings) {
     this.data = recordings;
     this.currIndex = 0;
+    this.endInSeconds = timeToSec(this.data[0].length);
   }
   getCurrIndex() {
     return this.currIndex;
@@ -25,6 +26,18 @@ class Birds {
   getCount() {
     return this.data.length;
   }
+}
+
+setInterval(() => {
+  const currIndex = birds[0].getCurrIndex() + 1;
+  const aud = document.getElementById('audio-player'+currIndex);
+  if(aud.currentTime > birds[0].endInSeconds - 2) {
+    linearDecrease(aud);}
+}, 1000);
+function timeToSec(time) {
+  let sec = 60*time.substring(0, time.indexOf(':'));
+  sec += parseInt(time.substring(time.indexOf(':')+1));
+  return sec;
 }
 
 
@@ -89,6 +102,7 @@ async function createPlayer() {
     audioPlayer.className = "middle";
     // COMMENTED OUT WHILE TESTING
     // audioPlayer.src = birds[0].data[i-1].file;
+    audioPlayer.src = "testAudio.wav";      // ONLY USE FOR TESTING
     audioContainer.prepend(audioPlayer);
     audioPlayer.addEventListener('ended', () => playNextBird());
   }
@@ -130,12 +144,14 @@ function playNextBird(e) {
   const newBird = document.getElementById('audio-player'+currIndex)
   newBird.play();
   newBird.controls = true;
+  newBird.volume = 0;
+  linearIncrease(newBird);
+  birds[0].endInSeconds = timeToSec(birds[0].getBird().length);
 }
 
 function toggleLoop() {
   const currIndex = birds[0].getCurrIndex() + 1;
   const aud = document.getElementById('audio-player'+currIndex);
-  console.log(birds[0].getCurrIndex+1)
   aud.loop = !aud.loop;
   
   if(aud.loop) {
@@ -143,4 +159,27 @@ function toggleLoop() {
   } else {
     document.getElementById('loopBtn').src = "images/loop-off.svg"
   }
+}
+
+function linearDecrease(aud) {
+  let i = 100*aud.volume;
+  const intervalId = setInterval(() => {
+    if(i < 0) {
+      clearInterval(intervalId);
+      return;
+    }
+    aud.volume = 0.01*i;
+    i--;
+  }, 10);
+}
+function linearIncrease(aud) {
+  let i = 100*aud.volume;
+  const intervalId = setInterval(() => {
+    if(i > 100) {
+      clearInterval(intervalId);
+      return;
+    }
+    aud.volume = 0.01*i;
+    i++;
+  }, 10);
 }
