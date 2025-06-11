@@ -100,11 +100,16 @@ async function createPlayer() {
     const audioPlayer = document.createElement('audio');
     audioPlayer.id = "audio-player"+i;
     audioPlayer.className = "middle";
-    // COMMENTED OUT WHILE TESTING
-    // audioPlayer.src = birds[0].data[i-1].file;
-    audioPlayer.src = "testAudio.wav";      // ONLY USE FOR TESTING
     audioContainer.prepend(audioPlayer);
     audioPlayer.addEventListener('ended', () => playNextBird());
+  }
+  for(let i = 1; i < birds[0].getCount()+1; i++) {
+    const audioPlayer = document.getElementById('audio-player'+i);
+    // COMMENTED OUT WHILE TESTING
+    // audioPlayer.src = birds[0].data[i-1].file;
+    // playNextBird();
+    
+    audioPlayer.src = "testAudio.wav";      // ONLY USE FOR TESTING
   }
   document.getElementById('audio-player1').controls = true;
 }
