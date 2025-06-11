@@ -27,13 +27,6 @@ class Birds {
     return this.data.length;
   }
 }
-
-setInterval(() => {
-  const currIndex = birds[0].getCurrIndex() + 1;
-  const aud = document.getElementById('audio-player'+currIndex);
-  if(aud.currentTime > birds[0].endInSeconds - 2) {
-    linearDecrease(aud);}
-}, 1000);
 function timeToSec(time) {
   let sec = 60*time.substring(0, time.indexOf(':'));
   sec += parseInt(time.substring(time.indexOf(':')+1));
@@ -43,6 +36,13 @@ function timeToSec(time) {
 
 window.onload = async () => {
   await createPlayer();
+
+  setInterval(() => {
+    const currIndex = birds[0].getCurrIndex() + 1;
+    const aud = document.getElementById('audio-player'+currIndex);
+    if(aud.currentTime > birds[0].endInSeconds - 2) {
+      linearDecrease(aud);}
+  }, 1000);
 }
 
 document.getElementById('nextBtn').addEventListener('click', async (e) => {
