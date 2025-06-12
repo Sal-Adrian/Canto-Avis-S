@@ -11,7 +11,10 @@ app.use('/', express.static('public'));
 
 app.get('/birds', async (req, res) => {
   try {
+    // COMMENTED OUT WHILE TESTING
     // const xeno = await getXeno(XENO_KEY);
+
+    // ONLY USE FOR TESTING
     const xeno = JSON.parse(await readFile("testData.json", "utf8")); 
 
     res.json(xeno.recordings)

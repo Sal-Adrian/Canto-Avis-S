@@ -105,11 +105,20 @@ async function createPlayer() {
   }
   for(let i = 1; i < birds[0].getCount()+1; i++) {
     const audioPlayer = document.getElementById('audio-player'+i);
+    const audioData = birds[0].data[i-1];
+
     // COMMENTED OUT WHILE TESTING
-    // audioPlayer.src = birds[0].data[i-1].file;
+    // audioPlayer.src = audioData.file;
     // playNextBird();
     
-    audioPlayer.src = "testAudio.wav";      // ONLY USE FOR TESTING
+    // ONLY USE FOR TESTING
+    let fileName = 'testAudio/'
+    fileName += `XC${audioData.id} - `;
+    fileName += `${audioData.en} - `;
+    fileName += `${audioData.gen} ${audioData.sp}`;
+    if(audioData.ssp) fileName += ` ${audioData.ssp}`;
+    fileName += audioData['file-name'].slice(-4).toLowerCase();
+    audioPlayer.src = fileName;      
   }
   document.getElementById('audio-player1').controls = true;
 }
