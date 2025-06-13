@@ -34,7 +34,7 @@ function timeToSec(time) {
 }
 
 
-window.onload = async () => {
+window.onload = async (e) => {
   await createPlayer();
 
   setInterval(() => {
@@ -45,15 +45,15 @@ window.onload = async () => {
   }, 1000);
 }
 
-document.getElementById('nextBtn').addEventListener('click', async (e) => {
+document.getElementById('nextBtn').addEventListener('click', (e) => {
   playNextBird();
 });
 
-document.getElementById('loopBtn').addEventListener('click', async (e) => {
+document.getElementById('loopBtn').addEventListener('click', (e) => {
   toggleLoop();
 });
 
-document.getElementById('queueBtn').addEventListener('click', async(e) => {
+document.getElementById('queueBtn').addEventListener('click', (e) => {
   const queue = document.getElementById('grid-con');
   let newName = queue.className;
   if(newName.indexOf('open') > -1) {
@@ -101,13 +101,13 @@ async function createPlayer() {
     audioPlayer.id = "audio-player"+i;
     audioPlayer.className = "middle";
     audioContainer.prepend(audioPlayer);
-    audioPlayer.addEventListener('ended', () => playNextBird());
+    audioPlayer.addEventListener('ended', (e) => playNextBird());
   }
   for(let i = 1; i < birds[0].getCount()+1; i++) {
     const audioPlayer = document.getElementById('audio-player'+i);
     
     // COMMENTED OUT WHILE TESTING
-    audioPlayer.addEventListener('play', () => {
+    audioPlayer.addEventListener('play', (e) => {
       if(!document.getElementById('audio-player'+(i+1)).src)
         document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
     });
@@ -145,7 +145,7 @@ function updateQueue() {
   }
 }
 
-function playNextBird(e) {
+function playNextBird() {
   let currIndex = birds[0].getCurrIndex() + 1;
   const oldBird = document.getElementById('audio-player'+currIndex);
   oldBird.pause();
