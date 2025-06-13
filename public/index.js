@@ -102,10 +102,7 @@ async function createPlayer() {
     audioPlayer.className = "middle";
     audioContainer.prepend(audioPlayer);
     audioPlayer.addEventListener('ended', (e) => playNextBird());
-  }
-  for(let i = 1; i < birds[0].getCount()+1; i++) {
-    const audioPlayer = document.getElementById('audio-player'+i);
-    
+
     // COMMENTED OUT WHILE TESTING
     audioPlayer.addEventListener('play', (e) => {
       if(!document.getElementById('audio-player'+(i+1)).src)
