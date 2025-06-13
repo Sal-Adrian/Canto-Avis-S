@@ -105,21 +105,24 @@ async function createPlayer() {
   }
   for(let i = 1; i < birds[0].getCount()+1; i++) {
     const audioPlayer = document.getElementById('audio-player'+i);
-    const audioData = birds[0].data[i-1];
-
+    
     // COMMENTED OUT WHILE TESTING
-    // audioPlayer.src = audioData.file;
-    // playNextBird();
+    audioPlayer.addEventListener('play', () => {
+      if(!document.getElementById('audio-player'+(i+1)).src)
+        document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
+    });
     
     // ONLY USE FOR TESTING
-    let fileName = 'testAudio/'
-    fileName += `XC${audioData.id} - `;
-    fileName += `${audioData.en} - `;
-    fileName += `${audioData.gen} ${audioData.sp}`;
-    if(audioData.ssp) fileName += ` ${audioData.ssp}`;
-    fileName += audioData['file-name'].slice(-4).toLowerCase();
-    audioPlayer.src = fileName;      
+    // const audioData = birds[0].data[i-1];
+    // let fileName = 'testAudio/'
+    // fileName += `XC${audioData.id} - `;
+    // fileName += `${audioData.en} - `;
+    // fileName += `${audioData.gen} ${audioData.sp}`;
+    // if(audioData.ssp) fileName += ` ${audioData.ssp}`;
+    // fileName += audioData['file-name'].slice(-4).toLowerCase();
+    // audioPlayer.src = fileName;      
   }
+  document.getElementById('audio-player1').src = bird.file;
   document.getElementById('audio-player1').controls = true;
 }
 
@@ -155,7 +158,8 @@ function playNextBird(e) {
   document.getElementById('player-details').innerHTML = createDetails(bird);
 
   currIndex = birds[0].getCurrIndex() + 1;
-  const newBird = document.getElementById('audio-player'+currIndex)
+  const newBird = document.getElementById('audio-player'+currIndex);
+  if(!newBird.src) newBird.src = bird.file;
   newBird.play();
   newBird.controls = true;
   newBird.volume = 0;
