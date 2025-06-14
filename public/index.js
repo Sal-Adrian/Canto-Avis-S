@@ -3,14 +3,23 @@ const birds = [];
 class Birds {
   constructor(recordings) {
     this.data = recordings;
+
+    this.randomized = [...Array(this.data.length).keys()];
+    let i = this.data.length;
+    while (i > 0) {
+      let randomIndex = Math.floor(Math.random() * i);
+      i--;
+      [this.randomized[i], this.randomized[randomIndex]] = [this.randomized[randomIndex], this.randomized[i]];
+    }
+
     this.currIndex = 0;
-    this.endInSeconds = timeToSec(this.data[0].length);
+    this.endInSeconds = timeToSec(this.data[this.randomized[0]].length);
   }
   getCurrIndex() {
     return this.currIndex;
   }
   getBird() {
-    return this.data[this.currIndex]
+    return this.data[this.randomized[this.currIndex]];
   }
   nextBird() {
     const plusOne = this.currIndex + 1;
@@ -21,7 +30,7 @@ class Birds {
     let plusI = this.currIndex + i;
     if(plusI >= this.data.length) plusI -= this.data.length;
 
-    return this.data[plusI];
+    return this.data[this.randomized[plusI]];
   }
   getCount() {
     return this.data.length;
@@ -104,20 +113,20 @@ async function createPlayer() {
     audioPlayer.addEventListener('ended', (e) => playNextBird());
 
     // COMMENTED OUT WHILE TESTING
-    audioPlayer.addEventListener('play', (e) => {
-      if(!document.getElementById('audio-player'+(i+1)).src)
-        document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
-    });
+    // audioPlayer.addEventListener('play', (e) => {
+    //   if(!document.getElementById('audio-player'+(i+1)).src)
+    //     document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
+    // });
     
     // ONLY USE FOR TESTING
-    // const audioData = birds[0].data[i-1];
-    // let fileName = 'testAudio/'
-    // fileName += `XC${audioData.id} - `;
-    // fileName += `${audioData.en} - `;
-    // fileName += `${audioData.gen} ${audioData.sp}`;
-    // if(audioData.ssp) fileName += ` ${audioData.ssp}`;
-    // fileName += audioData['file-name'].slice(-4).toLowerCase();
-    // audioPlayer.src = fileName;      
+    const audioData = birds[0].ithNextBird(i-1);
+    let fileName = 'testAudio/'
+    fileName += `XC${audioData.id} - `;
+    fileName += `${audioData.en} - `;
+    fileName += `${audioData.gen} ${audioData.sp}`;
+    if(audioData.ssp) fileName += ` ${audioData.ssp}`;
+    fileName += audioData['file-name'].slice(-4).toLowerCase();
+    audioPlayer.src = fileName;      
   }
   document.getElementById('audio-player1').src = bird.file;
   document.getElementById('audio-player1').controls = true;
