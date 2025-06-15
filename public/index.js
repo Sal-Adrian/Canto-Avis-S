@@ -112,21 +112,10 @@ async function createPlayer() {
     audioContainer.prepend(audioPlayer);
     audioPlayer.addEventListener('ended', (e) => playNextBird());
 
-    // COMMENTED OUT WHILE TESTING
-    // audioPlayer.addEventListener('play', (e) => {
-    //   if(!document.getElementById('audio-player'+(i+1)).src)
-    //     document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
-    // });
-    
-    // ONLY USE FOR TESTING
-    const audioData = birds[0].ithNextBird(i-1);
-    let fileName = 'testAudio/'
-    fileName += `XC${audioData.id} - `;
-    fileName += `${audioData.en} - `;
-    fileName += `${audioData.gen} ${audioData.sp}`;
-    if(audioData.ssp) fileName += ` ${audioData.ssp}`;
-    fileName += audioData['file-name'].slice(-4).toLowerCase();
-    audioPlayer.src = fileName;      
+    audioPlayer.addEventListener('play', (e) => {
+      if(!document.getElementById('audio-player'+(i+1)).src)
+        document.getElementById('audio-player'+(i+1)).src = birds[0].ithNextBird(1).file;
+    });  
   }
   document.getElementById('audio-player1').src = bird.file;
   document.getElementById('audio-player1').controls = true;
