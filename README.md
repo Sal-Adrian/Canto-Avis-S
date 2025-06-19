@@ -1,5 +1,8 @@
 
 # Canto Avis
+
+### Deprecated:  Xeno-Canto is now using software to protect against agressive web scraping. Unfortunately, this also blocks this app's audio download requests, so this version is no longer functional. The [static version](https://sal-adrian.github.io/Canto-Avis/) is still functional if you'd like to give it a try.
+
 Canto Avis is a music player for bird sounds using [Xeno-Canto](https://xeno-canto.org/explore/api)'s API. I enjoy the recordings on Xeno-Canto, but there isn't an option to consecutively play the recording in the background, so I made this.
 
 ## Static Version:
